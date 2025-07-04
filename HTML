@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Queue Reversal Tool</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f3f4f6;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .wrapper {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      max-width: 450px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      color: #4f46e5;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      margin-bottom: 1.5rem;
+      color: #555;
+    }
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      width: 100%;
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #4338ca;
+    }
+    .output {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      color: #111;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <h1>Queues</h1>
+    <p>Queue Reversal Tool</p>
+
+    <input type="text" id="queueInput" placeholder="Enter queue elements, e.g. 10, 20, 30">
+    <button onclick="reverseQueue()">Reverse Queue</button>
+
+    <div class="output" id="result"></div>
+  </div>
+
+  <script>
+    function reverseQueue() {
+      const input = document.getElementById('queueInput').value;
+      const items = input.split(',').map(x => x.trim()).filter(Boolean);
+
+      if (items.length === 0) {
+        document.getElementById('result').textContent = "Please enter some values.";
+        return;
+      }
+
+      // Simulate queue reversal using stack
+      const stack = [];
+      const queue = [];
+
+      // Enqueue items
+      items.forEach(item => queue.push(item));
+
+      // Move from queue to stack
+      while (queue.length > 0) {
+        stack.push(queue.shift());
+      }
+
+      // Move back from stack to queue (reversed)
+      while (stack.length > 0) {
+        queue.push(stack.pop());
+      }
+
+      document.getElementById('result').textContent = "Reversed Queue: " + queue.join(', ');
+    }
+  </script>
+
+</body>
+</html>
